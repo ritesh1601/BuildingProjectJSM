@@ -1,0 +1,4 @@
+npm install next-auth@beta
+npx auth secret
+AUTH_GITHUB_ID="Ov23liGHjxPSHF9H4fkZ"
+AUTH_GITHUB_SECRET="aab30354fe7da438a33c6e072be037eb4bfa8706"
