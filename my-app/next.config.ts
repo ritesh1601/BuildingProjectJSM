@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images:{
+    dangerouslyAllowSVG:true,
+    remotePatterns:[
+      {
+        protocol: "https",
+        hostname: "**", // Double asterisk allows all subdomains
+        port: "",
+        pathname: "**", // Allows all paths
+      },
+    ]
+  }
 };
 
 export default nextConfig;
