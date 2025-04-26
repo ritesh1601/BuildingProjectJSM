@@ -1,5 +1,4 @@
 import { defineType, defineField } from "sanity";
-import { UserIcon } from "lucide-react";
 
 export const startup = defineType({
     name: 'startup',
@@ -34,7 +33,7 @@ export const startup = defineType({
             name: "category",
             type: "string",
             validation:(Rule)=>Rule.min(1).max(20).required().error("Please Enter a Category"),
-        }), 
+        }),
         defineField({
             name: "image",
             type: "url",

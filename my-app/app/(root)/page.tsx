@@ -1,36 +1,27 @@
 import '../globals.css';
 import SearchForm from "@/components/SearchForm";
 import StartupCard from "@/components/StartupCard";
+import { STARTUPS_QUERY } from '@/lib/queries';
+import { client } from '@/sanity/lib/client';
+import { StartupTypeCard } from '@/components/StartupCard';
 
-interface StartupCardType {
-    _id: number;
-    _createdAt: Date;
-    views: number;
-    author: { _id: number };
-    description: string;
-    image: string;
-    category: string;
-    title: string;
-}
-
-export default async function Home({
-                                       searchParams
-                                   }: {
-    searchParams: Promise<{ query?: string }>
-}) {
+export default async function Home(
+    {searchParams}: {searchParams: Promise<{ query?: string }>})
+    {
     const query = (await searchParams).query;
-
+    const posts= await client.fetch(STARTUPS_QUERY);
+    console.log(JSON.stringify(posts, null ,2));
     // Temporary hardcoded data - replace with real data fetching
-    const posts: StartupCardType[] = [{
-        _id: 1,
-        _createdAt: new Date(),
-        views: 55,
-        author: { _id: 1 , name: 'Ritesh'},
-        description: 'This is description',
-        image: "https://wallpaperaccess.com/full/327871.jpg",
-        category: 'dogs',
-        title: "Cute Dogs",
-    }];
+    // const posts: StartupCardType[] = [{
+    //     _id: 1,
+    //     _createdAt: new Date(),
+    //     views: 55,
+    //     author: { _id: 1 , name: 'Ritesh'},
+    //     description: 'This is description',
+    //     image: "https://wallpaperaccess.com/full/327871.jpg",
+    //     category: 'dogs',
+    //     title: "Cute Dogs",
+    // }];
 
     return (
         <>
@@ -53,7 +44,7 @@ export default async function Home({
                 </p>
                 <ul className="mt-7 card_grid">
                     {posts?.length > 0 ? (
-                        posts.map((post) => (
+                        posts.map((post:StartupTypeCard) => (
                             <StartupCard key={post._id} post={post} />
                         ))
                     ) : (
