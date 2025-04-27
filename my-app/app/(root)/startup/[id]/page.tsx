@@ -3,10 +3,13 @@ import { STARTUPS_BY_ID_QUERY } from '@/lib/queries';
 import { client } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import {Suspense} from "react";
 import Link from 'next/link';
 export const experimental_ppr = true;
 // import markdownit from"markdown-it";
 import { simpleMarkdownToHtml } from '@/lib/markdown';
+import {Skeleton} from "@/components/ui/skeleton";
+import View from "@/components/View";
 interface Params {
   params: {
     id: string;
@@ -50,7 +53,7 @@ const Page = async ({ params }: Params) => {
             </div>
                 <h3 className='text-30-bold'>Pitch Details</h3>
                 {pitchHtml?(
-  <div 
+  <article
     className="prose" 
     dangerouslySetInnerHTML={{ __html: pitchHtml }} 
   />
@@ -69,6 +72,16 @@ const Page = async ({ params }: Params) => {
                     </p>
                 })} */}
         </div>
+        <hr className="divider"/>
+
+        {/* TODO : EDITOR SELECTED STARTUPS*/}
+        <Suspense
+            fallback={
+            <Skeleton className="view_skeleton"/>
+        }
+        >
+            <View id={params.id}/>
+        </Suspense>
     </section>
     </>
   );
