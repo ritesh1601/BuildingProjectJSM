@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
         pathname: "**", // Allows all paths
       },
     ]
-  }
+  },
+  experimental:{
+    ppr:"incremental",
+  },
 };
 
 export default nextConfig;
