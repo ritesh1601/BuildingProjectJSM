@@ -9,10 +9,12 @@ import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 export default async function Home(
     {searchParams}: {searchParams: Promise<{ query?: string }>})
     {
-    const query = (await searchParams).query;
+    //To get query from the url
+        const query = (await searchParams).query;
     // const posts= await client.fetch(STARTUPS_QUERY);
-
-    const {data : posts} = await sanityFetch({query:STARTUPS_QUERY});
+    const params={search:query||null};
+    //passing the querry from the url and updating the startup_query accordingly
+    const {data : posts} = await sanityFetch({query:STARTUPS_QUERY , params});
 
     console.log(JSON.stringify(posts, null ,2));
     // Temporary hardcoded data - replace with real data fetching
