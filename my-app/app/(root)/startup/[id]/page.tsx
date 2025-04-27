@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 export const experimental_ppr = true;
 // import markdownit from"markdown-it";
+import { simpleMarkdownToHtml } from '@/lib/markdown';
 interface Params {
   params: {
     id: string;
@@ -13,9 +14,10 @@ interface Params {
 }
 // const md=markdownit();
 // const parsedContent=md.render(post?.pitch || '');
+
 const Page = async ({ params }: Params) => {
   const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id: params.id });
-  
+  const pitchHtml = post.pitch ? simpleMarkdownToHtml(post.pitch) : null;
   if (!post) {
     return notFound();
   }
@@ -47,6 +49,16 @@ const Page = async ({ params }: Params) => {
                 <p className='category-tag'>{post.category}</p>
             </div>
                 <h3 className='text-30-bold'>Pitch Details</h3>
+                {pitchHtml?(
+  <div 
+    className="prose" 
+    dangerouslySetInnerHTML={{ __html: pitchHtml }} 
+  />
+):(
+    <p className='no-result'>
+        No Details Provided
+    </p>
+)}
                 {/* {parsedContent?({
                     <article className="prose max-w-4xl font-work-sans break-all"
                         dangerouslySetInnerHTML={{__html:parsedContent}}
