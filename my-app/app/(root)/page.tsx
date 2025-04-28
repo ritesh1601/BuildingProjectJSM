@@ -5,6 +5,7 @@ import { STARTUPS_QUERY } from '@/lib/queries';
 // import { client } from '@/sanity/lib/client';
 import { StartupTypeCard } from '@/components/StartupCard';
 import { sanityFetch, SanityLive } from '@/sanity/lib/live';
+import {auth} from "@/auth";
 
 export default async function Home(
     {searchParams}: {searchParams: Promise<{ query?: string }>})
@@ -29,6 +30,9 @@ export default async function Home(
     //     title: "Cute Dogs",
     // }];
 
+
+        const session=await auth();
+        console.log(session.user.id);
     return (
         <>
             <section className="pink_container">
