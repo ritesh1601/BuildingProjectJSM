@@ -32,7 +32,12 @@ export default async function Home(
 
 
         const session=await auth();
-        console.log(session.user.id);
+        console.log('Session data:', session);
+        if (session) {
+            console.log('User ID:', session.user?.id);
+        } else {
+            console.log('No active session');
+        }
     return (
         <>
             <section className="pink_container">
