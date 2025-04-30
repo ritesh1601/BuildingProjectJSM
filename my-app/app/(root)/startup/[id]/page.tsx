@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { client } from "@/sanity/lib/client";
 import {
+    PLAYLIST_BY_SLUG_QUERY,
     STARTUP_BY_ID_QUERY,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -20,7 +21,12 @@ export const experimental_ppr = true;
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     const id = (await params).id;
 
-    const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+    const [post, { select: editorPosts }] = await Promise.all([
+        client.fetch(STARTUP_BY_ID_QUERY, { id }),
+        client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+            slug: "my-picks",
+        }),
+    ]);
 
     if (!post) return notFound();
 
@@ -37,7 +43,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
             <section className="section_container">
                 <img
-                    src={post?.image}
+                    src={post.image}
                     alt="thumbnail"
                     className="w-full h-auto rounded-xl"
                 />
@@ -49,7 +55,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                             className="flex gap-2 items-center mb-3"
                         >
                             <Image
-                                src={post.author?.image}
+                                src={post.author.image}
                                 alt="avatar"
                                 width={64}
                                 height={64}
@@ -57,14 +63,14 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                             />
 
                             <div>
-                                <p className="text-20-medium">{post.author?.name}</p>
+                                <p className="text-20-medium">{post.author.name}</p>
                                 <p className="text-16-medium !text-black-300">
-                                    @{post.author?.username}
+                                    @{post.author.username}
                                 </p>
                             </div>
                         </Link>
 
-                        <p className="category-tag">{post?.category}</p>
+                        <p className="category-tag">{post.category}</p>
                     </div>
 
                     <h3 className="text-30-bold">Pitch Details</h3>
@@ -80,6 +86,18 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
                 <hr className="divider" />
 
+                {editorPosts?.length > 0 && (
+                    <div className="max-w-4xl mx-auto">
+                        <p className="text-30-semibold">Editor Picks</p>
+
+                        <ul className="mt-7 card_grid-sm">
+                            {editorPosts.map((post: StartupTypeCard, i: number) => (
+                                <StartupCard key={i} post={post} />
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
                 <Suspense fallback={<Skeleton className="view_skeleton" />}>
                     <View id={id} />
                 </Suspense>
@@ -89,10 +107,3 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 };
 
 export default Page;
-
-
-
-
-
-
-
