@@ -1,4 +1,4 @@
-# 🚀 BuildingProjectJSM
+# 🚀 A Startup Pitch Listing App
 
 A modern full-stack startup listing platform built with **Next.js**, **Sanity.io**, and **TypeScript**. Users can discover startups, search in real-time, submit their own ventures, and authors can manage entries through an authenticated dashboard.
 
@@ -9,7 +9,8 @@ A modern full-stack startup listing platform built with **Next.js**, **Sanity.io
 - 📝 **Markdown Support** for startup descriptions
 - 🔍 **Real-Time Search** with URL syncing
 - 🧾 **Author Auto-Creation** on login
-- 📈 **Live View Count Updates** using Sanity Write API
+- 📈 **Live View Count Updates** using Sanity Write API and Latest Next JS feature **Partial Pre-rendering**
+-
 - 🛠 **Error Monitoring** via Sentry
 - 📃 **Form Validations** with smooth UX
 
@@ -18,10 +19,12 @@ A modern full-stack startup listing platform built with **Next.js**, **Sanity.io
 ## 🖥️ Demo
 
 **Live URL:** [https://building-project-jsm.vercel.app](https://building-project-jsm.vercel.app)
+https://raw.githubusercontent.com/ritesh1601/BuildingProjectJSM/refs/heads/main/image.png
 
 ---
 
 ## 🗂 Project Structure
+
 
 ---
 
@@ -66,9 +69,24 @@ A modern full-stack startup listing platform built with **Next.js**, **Sanity.io
 
 ### 1. Clone & Install
 
+
 ```bash
 git clone https://github.com/ritesh1601/BuildingProjectJSM.git
 cd BuildingProjectJSM/my-app
-npm install
+npm install --force
+```
 
-
+### 2. Run these command Next to setup environment variable and Auth
+```
+npm install next-auth@beta --force
+npx auth secret
+```
+### 3. Open .env.local and paste these setup info of yours
+```
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_secret
+GITHUB_ID=your_github_id
+GITHUB_SECRET=your_github_secret
+SANITY_PROJECT_ID=your_project_id
+SANITY_DATASET=production
+```
