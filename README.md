@@ -23,3 +23,52 @@ A modern full-stack startup listing platform built with **Next.js**, **Sanity.io
 
 ## 🗂 Project Structure
 
+---
+
+## 🛠 Tech Stack
+
+| Technology | Purpose                            |
+|------------|------------------------------------|
+| Next.js    | Full-stack framework               |
+| TypeScript | Type safety                        |
+| Sanity.io  | Headless CMS                       |
+| NextAuth   | GitHub authentication              |
+| Vercel     | Deployment                         |
+| Sentry     | Error tracking                     |
+
+---
+
+## 🧪 Functionality Guide
+
+### 👤 User Authentication
+- Login via GitHub on the home page.
+- If the logged-in user does not exist in the database, a new **author** record is created automatically.
+
+### 🔍 Real-Time Search
+- Use the search bar to find startups by name or keywords.
+- The results auto-update based on query string in the URL.
+
+### 📄 View Startups
+- All startups are listed on the homepage with live view counts.
+- Click any card to view full details with markdown-rendered descriptions.
+
+### 🧑‍💼 Submit a Startup
+- Logged-in users can navigate to `/submit` to fill out the **Startup Submission Form**.
+- The form includes validation on all required fields.
+- Submissions are sent to Sanity CMS and available instantly.
+
+### 🧠 Author Pages
+- Each author has a public profile page listing their submitted startups.
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/ritesh1601/BuildingProjectJSM.git
+cd BuildingProjectJSM/my-app
+npm install
+
+
